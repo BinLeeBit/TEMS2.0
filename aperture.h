@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include "CameraOperate.h"
 
 class Aperture : public QWidget
 {
@@ -18,7 +19,7 @@ private:
     QPushButton *openCamBtn;        //打开相机
     QPushButton *savePicBtn;        //保存当前帧
     QVBoxLayout *mainLayout;
-
+    CameraOperate cam;
 signals:
 
 public slots:
