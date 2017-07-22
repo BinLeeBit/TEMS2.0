@@ -33,4 +33,16 @@ void ResultPic::on_pushButton_editPicBtn_clicked()
     editPicWidget->setEnabled(true);
     editPicWidget->resize(screenLabel->width(),screenLabel->height());
     editPicWidget->show();
+    connect(editPicWidget,SIGNAL(confirmBtn_Signal()),this,SLOT(on_getDistance()));
+}
+
+void ResultPic::on_getDistance()
+{
+    pointsDistance = editPicWidget->getLineLenth();
+    emit hasGetDistance_Signal();
+}
+
+float ResultPic::getDistance()
+{
+    return pointsDistance;
 }

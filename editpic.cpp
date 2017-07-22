@@ -22,7 +22,7 @@ EditPic::EditPic(QWidget *parent) : QWidget(parent)
     cancelBtn->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
     confirmBtn = new QPushButton(tr("确定"));
     confirmBtn->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
-    picLabel = new QLabel(tr("手动测量图片"));
+    picLabel = new myLabel();
     picLabel->setAlignment(Qt::AlignCenter);
     picLabel->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
     picLabel->setStyleSheet("background-color: rgb(0,0,255);");
@@ -41,9 +41,11 @@ EditPic::EditPic(QWidget *parent) : QWidget(parent)
     mainLayout->addWidget(picLabel,1,0);
 
     //-----------------链接信号和槽-----------------//
-    connect(colorEditBtn,SIGNAL(clicked(bool)),this,SLOT(showColor()));
+    connect(colorEditBtn,SIGNAL(clicked(bool)),this,SLOT(on_pushButton_colorEditBtn_clicked()));
     connect(revokeBtn,SIGNAL(clicked(bool)),this,SLOT(on_pushButton_revokeBtn_clicked()));
     connect(cancelBtn,SIGNAL(clicked(bool)),this,SLOT(on_pushButton_cancelBtn_clicked()));
+    connect(confirmBtn,SIGNAL(clicked(bool)),this,SLOT(on_pushButton_confirmBtn_clicked()));
+    connect(lineSizeComboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(on_comboBox_lineSizeComboBox_indexChanged()));
     //----------------功能部分初始化----------------//
     lineSize = new int[5];
     for(unsigned int i =0;i<5;i++){
@@ -58,7 +60,8 @@ EditPic::~EditPic()
     EditPic::close();
 }
 
-void EditPic::showColor()
+//----------------------槽函数--------------------------//
+void EditPic::on_pushButton_colorEditBtn_clicked()
 {
     lineColor = QColorDialog::getColor(Qt::blue);
     if(lineColor.isValid()){
@@ -69,12 +72,14 @@ void EditPic::showColor()
                 +QString::number(g,10)+","+QString::number(b,10)+");");
         colorEditBtn->setStyleSheet(rgb);
     }
+    picLabel->setLineColor(lineColor);
 }
 
 void EditPic::on_pushButton_revokeBtn_clicked()
 {
     lineStartPoint = QPoint(0,0);
     lineEndPoint = QPoint(0,0);
+    picLabel->clear();//  paintEvent
 }
 
 void EditPic::on_pushButton_cancelBtn_clicked()
@@ -84,6 +89,20 @@ void EditPic::on_pushButton_cancelBtn_clicked()
     this->close();
 }
 
+void EditPic::on_pushButton_confirmBtn_clicked()
+{
+    lineStartPoint = picLabel->getStartPoint();
+    lineEndPoint = picLabel->getEndPoint();
+    emit confirmBtn_Signal();
+    this->close();
+}
+
+void EditPic::on_comboBox_lineSizeComboBox_indexChanged()
+{
+    picLabel->setLineSize(lineSize[lineSizeComboBox->currentIndex()]);
+}
+
+//--------------------------功能函数-------------------------//
 //得到线条粗细
 int EditPic::getLineSize()
 {
@@ -113,62 +132,4 @@ float EditPic::getLineLenth()
 {
     return sqrtf(powf(lineStartPoint.x()-lineEndPoint.x(),2.0f)+
                  powf(lineStartPoint.y()-lineEndPoint.y(),2.0f));
-}
-
-bool EditPic::eventFilter(QObject *watched, QEvent *event)
-{
-    if(watched ==picLabel && event->type() == QEvent::Paint){
-        paintEvent();
-    }
-    return QWidget::eventFilter(watched,event);
-}
-
-//绘制线条
-void EditPic::paintEvent()
-{
-    QPainter painter(picLabel);
-    QPen pen;
-    pen.setColor(lineColor);
-    pen.setWidth(lineSize[lineSizeComboBox->currentIndex()]);
-    painter.setPen(pen);
-    painter.drawLine(lineStartPoint,lineEndPoint);
-}
-
-//鼠标按下
-void EditPic::mousePressEvent(QMouseEvent *e)
-{
-    lineStartPoint = e->pos();
-    lineEndPoint = e->pos();
-    //在图片上绘制
-    if(lineStartPoint.x()>(picLabel->x()+picLabel->width())||lineStartPoint.x()<picLabel->x()||
-            lineStartPoint.y()>(picLabel->y()+picLabel->height())||lineStartPoint.y()<picLabel->y()){
-        isPressed = false;
-        lineStartPoint = QPoint(0,0);
-        lineEndPoint = QPoint(0,0);
-    }
-    else{
-        isPressed = true;
-    }
-}
-
-//鼠标移动
-void EditPic::mouseMoveEvent(QMouseEvent *e)
-{
-    if(isPressed)
-    {
-        lineEndPoint=e->pos();
-        update();
-    }
-}
-
-//鼠标抬起
-void EditPic::mouseReleaseEvent(QMouseEvent *e)
-{
-    isPressed=false;
-    if(e->pos().x()>(picLabel->x()+picLabel->width())||e->pos().x()<picLabel->x()||
-            e->pos().y()>(picLabel->y()+picLabel->height())||e->pos().y()<picLabel->y()){
-        lineStartPoint = QPoint(0,0);
-        lineEndPoint = QPoint(0,0);
-    }
-    update();
 }

@@ -13,6 +13,8 @@ class ResultPic : public QWidget
     Q_OBJECT
 public:
     explicit ResultPic(QWidget *parent = 0);
+    //得到点的距离
+    float getDistance();
 
 private:
     QLabel *screenLabel;            //显示屏
@@ -21,10 +23,13 @@ private:
 
     QVBoxLayout *mainLayout;
     EditPic *editPicWidget;
-signals:
+    float pointsDistance;
 
+signals:
+    void hasGetDistance_Signal();
 public slots:
     void on_pushButton_editPicBtn_clicked();
+    void on_getDistance();
 };
 
 #endif // RESULTPIC_H

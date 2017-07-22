@@ -30,6 +30,11 @@ public:
     QVBoxLayout *rightLayout;
     */
     QGridLayout *mainLayout;
+
+signals:
+
+public slots:
+    void on_Widget_resultpic_getDistance();
 };
 
 #endif // TEMS_H

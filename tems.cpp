@@ -30,10 +30,18 @@ tems::tems(QWidget *parent)
     mainLayout->addWidget(selectandresult,0,3,2,1);
     mainLayout->addWidget(aperture1,1,0);
     mainLayout->addWidget(aperture2,1,1);
-    //mainLayout->setSizeConstraint(QLayout::SetFixedSize);
+
+    //---------------连接信号和槽--------------//
+    //每次得到距离立马给选择个结果界面发送更新距离的消息
+    connect(resultpic,SIGNAL(hasGetDistance_Signal()),this,SLOT(on_Widget_resultpic_getDistance()));
 }
 
 tems::~tems()
 {
 
+}
+
+void tems::on_Widget_resultpic_getDistance()
+{
+    selectandresult->setDistance(resultpic->getDistance());
 }

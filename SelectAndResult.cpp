@@ -2,8 +2,8 @@
 #include <QGridLayout>
 #include <QDateTime>
 #include <cstdlib>
-//#include <QProcess>
 #include <QApplication>
+#include <sstream>
 
 SelectAndResult::SelectAndResult(QWidget *parent) : QWidget(parent)
 {
@@ -55,10 +55,14 @@ void SelectAndResult::timerUpdate()
 
 void SelectAndResult::on_pushButton_motorCtrlBtn_clicked()
 {
-    QString application = QApplication::applicationDirPath().append(
-                "/motor/WindowsFormsApplication1.application");
-    system(application.toLatin1().data());
-    //QProcess *process = new QProcess(this);
-    //process->start(application);
+    system("motor\\WindowsFormsApplication1.application");
+}
+
+void SelectAndResult::setDistance(float distance)
+{
+    this->pointsDistance = distance;
+    std::stringstream str;
+    str << pointsDistance;
+    distanceTextBrowser->append(str.str().c_str());
 }
 

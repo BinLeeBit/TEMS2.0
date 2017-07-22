@@ -14,6 +14,8 @@ class SelectAndResult : public QWidget
     Q_OBJECT
 public:
     explicit SelectAndResult(QWidget *parent = 0);
+    //设置距离
+    void setDistance(float distance);
 private:
     QLabel *motorCtrlLabel;         //电机控制
     QPushButton *motorCtrlBtn;
@@ -26,6 +28,7 @@ private:
     QVBoxLayout *mainLayout;
 
     QTimer *timer;                  //计时器
+    float pointsDistance;           //点间距离
 signals:
 
 public slots:

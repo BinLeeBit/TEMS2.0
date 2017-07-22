@@ -11,6 +11,7 @@
 #include <QPoint>
 #include <QLine>
 #include <QMouseEvent>
+#include "myLabel.h"
 
 #define MARGIN_EDITPIC 40
 #define SPACING_EDITPIC 20
@@ -32,19 +33,9 @@ public:
     QPoint getLineEndPoint();
     //得到线条长度
     float getLineLenth();
-    //绘制线条
-    void paintEvent();
-    //鼠标按下
-    void mousePressEvent(QMouseEvent *e);
-    //鼠标移动
-    void mouseMoveEvent(QMouseEvent *e);
-    //鼠标抬起
-    void mouseReleaseEvent(QMouseEvent *e);
-    //在picLabel绘制
-    bool eventFilter(QObject *watched, QEvent *event);
 
 private:
-    QLabel *picLabel;               //测量图片
+    myLabel *picLabel;               //测量图片
     QPushButton *colorEditBtn;      //线条颜色
     QComboBox *lineSizeComboBox;    //线条粗细
     QPushButton *confirmBtn;        //确认按钮
@@ -58,12 +49,14 @@ private:
     QPoint lineEndPoint;            //画线终点
     bool isPressed = false;                 //鼠标是否已经按下
 signals:
-
-private slots:
-    void showColor();
+    //发送点击了确定的信号
+    void confirmBtn_Signal();
+public slots:
+    void on_pushButton_colorEditBtn_clicked();
     void on_pushButton_revokeBtn_clicked();
     void on_pushButton_cancelBtn_clicked();
-    //void on_pushButton_confirmBtn_clicked();
+    void on_pushButton_confirmBtn_clicked();
+    void on_comboBox_lineSizeComboBox_indexChanged();
 };
 
 #endif // EDITPIC_H
