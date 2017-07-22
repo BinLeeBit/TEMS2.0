@@ -15,9 +15,7 @@ TEMPLATE = app
 SOURCES += main.cpp\
         tems.cpp \
     aperture.cpp \
-    CameraOperate.cpp \
     editpic.cpp \
-    MatProcess.cpp \
     opticalscreen.cpp \
     resultpic.cpp \
     SelectAndResult.cpp \
@@ -25,9 +23,7 @@ SOURCES += main.cpp\
 
 HEADERS  += tems.h \
     aperture.h \
-    CameraOperate.h \
     editpic.h \
-    MatProcess.h \
     opticalscreen.h \
     resultpic.h \
     SelectAndResult.h \

@@ -22,5 +22,10 @@ Aperture::Aperture(QWidget *parent) : QWidget(parent)
     mainLayout->setSpacing(8);
     mainLayout->addWidget(screenLabel);
     mainLayout->addLayout(botton);
-    //mainLayout->setSizeConstraint(QLayout::SetFixedSize);
+    connect(openCamBtn,SIGNAL(clicked(bool)),this,SLOT(on_pushButton_openCamBtn_clicked()));
+}
+
+void Aperture::on_pushButton_openCamBtn_clicked()
+{
+
 }
