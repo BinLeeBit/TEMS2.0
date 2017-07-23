@@ -44,6 +44,7 @@ SelectAndResult::SelectAndResult(QWidget *parent) : QWidget(parent)
     connect(timer,SIGNAL(timeout()),this,SLOT(timerUpdate()));
     timer->start(1000);                     //1s更新一次
     connect(motorCtrlBtn,SIGNAL(clicked(bool)),this,SLOT(on_pushButton_motorCtrlBtn_clicked()));
+    connect(measureMethodBtn,SIGNAL(clicked(bool)),this,SLOT(on_pushButton_measureMethodBtn_clicked()));
 }
 
 void SelectAndResult::timerUpdate()
@@ -58,11 +59,42 @@ void SelectAndResult::on_pushButton_motorCtrlBtn_clicked()
     system("motor\\WindowsFormsApplication1.application");
 }
 
+void SelectAndResult::on_pushButton_measureMethodBtn_clicked()
+{
+    distanceTextBrowser->append(tr("自动测量："));
+}
+
+void SelectAndResult::MethodInfo()
+{
+    distanceTextBrowser->append(tr("手动测量："));
+}
+
 void SelectAndResult::setDistance(float distance)
 {
     this->pointsDistance = distance;
     std::stringstream str;
     str << pointsDistance;
     distanceTextBrowser->append(str.str().c_str());
+}
+
+void SelectAndResult::setMeasurePattern(const int mode)
+{
+    distanceTextBrowser->append(tr("当前工作模式："));
+    switch (mode) {
+    case 0:
+        distanceTextBrowser->append(tr("选区衍射(SAD)"));
+        break;
+    case 1:
+        distanceTextBrowser->append(tr("高分辨像(HRF)"));
+        break;
+    case 2:
+        distanceTextBrowser->append(tr("明场像(BF)"));
+        break;
+    case 3:
+        distanceTextBrowser->append(tr("暗场像(DF)"));
+        break;
+    default:
+        break;
+    }
 }
 

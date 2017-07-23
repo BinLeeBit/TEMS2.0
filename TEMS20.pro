@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     opticalscreen.cpp \
     resultpic.cpp \
     SelectAndResult.cpp \
-    myLabel.cpp
+    myLabel.cpp \
+    CameraOperate.cpp
 
 HEADERS  += tems.h \
     aperture.h \
@@ -27,7 +28,8 @@ HEADERS  += tems.h \
     opticalscreen.h \
     resultpic.h \
     SelectAndResult.h \
-    myLabel.h
+    myLabel.h \
+    CameraOperate.h
 
 INCLUDEPATH += E:\software\opencv\opencv_QT\include\opencv2\
     E:\software\opencv\opencv_QT\include\opencv\

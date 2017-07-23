@@ -16,6 +16,8 @@ public:
     explicit SelectAndResult(QWidget *parent = 0);
     //设置距离
     void setDistance(float distance);
+    //设置测量模式
+    void setMeasurePattern(const int mode);
 private:
     QLabel *motorCtrlLabel;         //电机控制
     QPushButton *motorCtrlBtn;
@@ -34,6 +36,8 @@ signals:
 public slots:
     void timerUpdate();             //时间更新
     void on_pushButton_motorCtrlBtn_clicked();
+    void on_pushButton_measureMethodBtn_clicked();
+    void MethodInfo();              //测量方式信息
 };
 
 #endif // SELECTANDRESULT_H

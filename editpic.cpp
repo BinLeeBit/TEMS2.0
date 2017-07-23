@@ -2,6 +2,7 @@
 #include <QtMath>
 #include <QPen>
 #include <QPainter>
+#include <QBitmap>
 
 EditPic::EditPic(QWidget *parent) : QWidget(parent)
 {
@@ -132,4 +133,21 @@ float EditPic::getLineLenth()
 {
     return sqrtf(powf(lineStartPoint.x()-lineEndPoint.x(),2.0f)+
                  powf(lineStartPoint.y()-lineEndPoint.y(),2.0f));
+}
+
+void EditPic::setSrcPic(const QImage &pic)
+{
+    this->resultPic = pic;
+    picLabel->setPixmap(QPixmap::fromImage(resultPic));
+}
+
+QImage EditPic::getDstPic()
+{
+    QPainter painter(&resultPic);
+    QPen pen;
+    pen.setColor(lineColor);
+    pen.setWidth(lineSize[lineSizeComboBox->currentIndex()]);
+    painter.setPen(pen);
+    painter.drawLine(lineStartPoint,lineEndPoint);
+    return resultPic;
 }

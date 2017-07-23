@@ -67,6 +67,11 @@ QPoint myLabel::getEndPoint()
     return lineEndPoint;
 }
 
+void myLabel::setImage(const QImage &pic)
+{
+    this->setPixmap(QPixmap::fromImage(pic));
+}
+
 void myLabel::clear()
 {
     lineStartPoint = QPoint(0,0);

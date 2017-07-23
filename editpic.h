@@ -11,6 +11,7 @@
 #include <QPoint>
 #include <QLine>
 #include <QMouseEvent>
+#include <QImage>
 #include "myLabel.h"
 
 #define MARGIN_EDITPIC 40
@@ -33,9 +34,14 @@ public:
     QPoint getLineEndPoint();
     //得到线条长度
     float getLineLenth();
+    //设置测试图片
+    void setSrcPic(const QImage &pic);
+    //获得测量之后的图片
+    QImage getDstPic();
 
 private:
-    myLabel *picLabel;               //测量图片
+    myLabel *picLabel;              //测量图片
+    QImage resultPic;
     QPushButton *colorEditBtn;      //线条颜色
     QComboBox *lineSizeComboBox;    //线条粗细
     QPushButton *confirmBtn;        //确认按钮

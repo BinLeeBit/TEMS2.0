@@ -4,6 +4,8 @@
 #include <QPoint>
 #include <QColor>
 #include <QPaintEvent>
+#include <QImage>
+#include <QPixmap>
 
 class myLabel : public QLabel
 {
@@ -20,12 +22,15 @@ public:
     void mouseMoveEvent(QMouseEvent *e);
     //鼠标抬起
     void mouseReleaseEvent(QMouseEvent *e);
+
     //设置所画线条属性
     void setLineColor(const QColor lineColor);
     void setLineSize(const int lineSize);
     //得到画线的起点和终点
     QPoint getStartPoint();
     QPoint getEndPoint();
+    //将图片设置为背景
+    void setImage(const QImage &pic);
 
     void clear();
 

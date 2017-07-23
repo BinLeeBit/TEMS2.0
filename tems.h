@@ -30,11 +30,13 @@ public:
     QVBoxLayout *rightLayout;
     */
     QGridLayout *mainLayout;
+    int idCamera[3] ={2,1,0};   //光阑1处、光阑2处、光屏处相机id
 
 signals:
 
 public slots:
-    void on_Widget_resultpic_getDistance();
+    void on_Widget_resultpic_setDistance();
+    void on_Widget_resultpic_setPic();
 };
 
 #endif // TEMS_H
