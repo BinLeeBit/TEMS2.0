@@ -13,6 +13,7 @@ myLabel::myLabel()
 //绘制线条
 void myLabel::paintEvent(QPaintEvent *event)
 {
+    QLabel::paintEvent(event);//必须有，才能让背景图片显示出来
     QPainter painter(this);
     QPen pen;
     pen.setColor(lineColor);
@@ -65,11 +66,6 @@ QPoint myLabel::getStartPoint()
 QPoint myLabel::getEndPoint()
 {
     return lineEndPoint;
-}
-
-void myLabel::setImage(const QImage &pic)
-{
-    this->setPixmap(QPixmap::fromImage(pic));
 }
 
 void myLabel::clear()

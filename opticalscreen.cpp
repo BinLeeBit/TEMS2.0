@@ -90,6 +90,11 @@ QImage OpticalScreen::getConfirmedPic()
     return camFram_QImage;
 }
 
+cv::Mat OpticalScreen::getConfirmedPic_M()
+{
+    return camFram_Mat;
+}
+
 int OpticalScreen::getMeasurePattern()
 {
     return patternComboBox->currentIndex();

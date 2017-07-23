@@ -35,7 +35,8 @@ public:
 signals:
 
 public slots:
-    void on_Widget_resultpic_setDistance();
+    void on_Widget_resultpic_setDistanceOfManualMeasure();
+    void on_Widget_resultpic_setDistanceOfAutoMeasure();
     void on_Widget_resultpic_setPic();
 };
 

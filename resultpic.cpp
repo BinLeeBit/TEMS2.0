@@ -44,7 +44,38 @@ void ResultPic::on_getDistance()
 {
     pointsDistance = editPicWidget->getLineLenth();
     resultPic  = editPicWidget->getDstPic();
+    screenLabel->setPixmap(QPixmap::fromImage(resultPic));
     emit hasGetDistance_Signal();
+}
+
+
+void ResultPic::on_label_drawAutoMeasureResult()
+{
+    cv::Mat tempM = resultPic_M;
+    matPro = MatProcess(tempM);
+    if (MeasurePattern == 0){
+        //运行选区衍射（SAD）
+        matPro.SAD();
+    }
+    else if (MeasurePattern == 1){
+        //运行高分辨像(HRF)
+        matPro.HRF();
+    }
+    else if (MeasurePattern == 2){
+        //明场像(BF)
+        matPro.BF();
+    }
+    else if (MeasurePattern == 3){
+        //暗场像(DF)
+        matPro.DF();
+    }
+    pointsDistance = matPro.distance;
+    const uchar *pSrc = (const uchar *)tempM.data;
+    int width = screenLabel->width();
+    int height = screenLabel->height();
+    resultPic = QImage(pSrc, width, height, tempM.step, QImage::Format_RGB888).rgbSwapped();
+    screenLabel->setPixmap(QPixmap::fromImage(resultPic));
+    tempM.release();
 }
 
 float ResultPic::getDistance()
@@ -65,10 +96,9 @@ void ResultPic::setPic(const QImage &pic)
     screenLabel->setPixmap(QPixmap::fromImage(resultPic));
 }
 
-void ResultPic::drawMeasureResult()
+void ResultPic::setPic(const cv::Mat &pic)
 {
-
-    screenLabel->setPixmap(QPixmap::fromImage(resultPic));
+    resultPic_M = pic;
 }
 
 void ResultPic::setMeasurePattern(const int &mode)

@@ -32,7 +32,7 @@ private:
     QTimer *timer;                  //计时器
     float pointsDistance;           //点间距离
 signals:
-
+    void isAutoMethod_Sgnal();
 public slots:
     void timerUpdate();             //时间更新
     void on_pushButton_motorCtrlBtn_clicked();

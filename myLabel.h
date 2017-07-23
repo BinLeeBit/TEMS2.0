@@ -11,7 +11,6 @@ class myLabel : public QLabel
 {
     //Q_OBJECT
 public:
-    //explicit myLabel(QWidget *parent = 0);
     myLabel();
     //~myLabel();
     //绘制线条
@@ -29,9 +28,6 @@ public:
     //得到画线的起点和终点
     QPoint getStartPoint();
     QPoint getEndPoint();
-    //将图片设置为背景
-    void setImage(const QImage &pic);
-
     void clear();
 
 private:

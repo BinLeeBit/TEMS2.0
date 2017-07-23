@@ -62,6 +62,7 @@ void SelectAndResult::on_pushButton_motorCtrlBtn_clicked()
 void SelectAndResult::on_pushButton_measureMethodBtn_clicked()
 {
     distanceTextBrowser->append(tr("自动测量："));
+    emit isAutoMethod_Sgnal();
 }
 
 void SelectAndResult::MethodInfo()

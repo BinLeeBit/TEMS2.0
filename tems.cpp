@@ -24,11 +24,15 @@ tems::tems(QWidget *parent)
 
     //---------------连接信号和槽--------------//
     //每次得到距离立马给选择个结果界面发送更新距离的消息
-    connect(resultpic,SIGNAL(hasGetDistance_Signal()),this,SLOT(on_Widget_resultpic_setDistance()));
+    connect(resultpic,SIGNAL(hasGetDistance_Signal()),this,SLOT(on_Widget_resultpic_setDistanceOfManualMeasure()));
     //采取手动测量的信号给输出结果框架
     connect(resultpic,SIGNAL(ManualWayInfo_Singal()),selectandresult,SLOT(MethodInfo()));
-    //
+    //光屏处已经点击确认按钮
     connect(opticalscreen,SIGNAL(hasConfirm_Signal()),this,SLOT(on_Widget_resultpic_setPic()));
+    //选择自动测量
+    connect(selectandresult,SIGNAL(isAutoMethod_Sgnal()),resultpic,SLOT(on_label_drawAutoMeasureResult()));
+    //自动测量结果发送
+    connect(selectandresult,SIGNAL(isAutoMethod_Sgnal()),this,SLOT(on_Widget_resultpic_setDistanceOfAutoMeasure()));
 }
 
 tems::~tems()
@@ -40,7 +44,12 @@ tems::~tems()
     delete selectandresult;
 }
 
-void tems::on_Widget_resultpic_setDistance()
+void tems::on_Widget_resultpic_setDistanceOfManualMeasure()
+{
+    selectandresult->setDistance(resultpic->getDistance());
+}
+
+void tems::on_Widget_resultpic_setDistanceOfAutoMeasure()
 {
     selectandresult->setDistance(resultpic->getDistance());
 }
@@ -50,4 +59,5 @@ void tems::on_Widget_resultpic_setPic()
     selectandresult->setMeasurePattern(opticalscreen->getMeasurePattern());
     resultpic->setMeasurePattern(opticalscreen->getMeasurePattern());
     resultpic->setPic(opticalscreen->getConfirmedPic());
+    resultpic->setPic(opticalscreen->getConfirmedPic_M());
 }

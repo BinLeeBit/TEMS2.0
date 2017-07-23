@@ -20,6 +20,7 @@ public:
     void Init(int idCamera = 0);
     //获得已经确定的图像
     QImage getConfirmedPic();
+    cv::Mat getConfirmedPic_M();
     //获得测量模式
     int getMeasurePattern();
 private:

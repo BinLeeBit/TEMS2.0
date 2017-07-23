@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     resultpic.cpp \
     SelectAndResult.cpp \
     myLabel.cpp \
-    CameraOperate.cpp
+    CameraOperate.cpp \
+    MatProcess.cpp
 
 HEADERS  += tems.h \
     aperture.h \
@@ -29,7 +30,8 @@ HEADERS  += tems.h \
     resultpic.h \
     SelectAndResult.h \
     myLabel.h \
-    CameraOperate.h
+    CameraOperate.h \
+    MatProcess.h
 
 INCLUDEPATH += E:\software\opencv\opencv_QT\include\opencv2\
     E:\software\opencv\opencv_QT\include\opencv\

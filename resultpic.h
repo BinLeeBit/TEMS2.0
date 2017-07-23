@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include "editpic.h"
+#include "MatProcess.h"
 
 class ResultPic : public QWidget
 {
@@ -19,6 +20,7 @@ public:
     void setDistance(const float &distance = 0);
     //设置处理的图像
     void setPic(const QImage &pic);
+    void setPic(const cv::Mat &pic);
     //设置测量模式
     void setMeasurePattern(const int &mode);
 
@@ -31,10 +33,9 @@ private:
     EditPic *editPicWidget;
     float pointsDistance;           //距离
     QImage resultPic;               //结果图
+    cv::Mat resultPic_M;
     int MeasurePattern;             //测量模式
-
-    //在原图上绘制测量结果
-    void drawMeasureResult();
+    MatProcess matPro;              //图像自动处理
 
 signals:
     void hasGetDistance_Signal();
@@ -43,6 +44,8 @@ signals:
 public slots:
     void on_pushButton_editPicBtn_clicked();
     void on_getDistance();
+    //在原图上绘制测量结果
+    void on_label_drawAutoMeasureResult();
 };
 
 #endif // RESULTPIC_H
